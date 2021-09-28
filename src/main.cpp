@@ -10,6 +10,7 @@
 #include "Ghislain.h"
 #include "Humain.h"
 #include "log.h"
+#include "Eclaireur.h"
 
 using namespace std;
 
@@ -40,7 +41,9 @@ int main()
         br = new BattleRoyale(10, 100, nbTest == 1);
         for (int j = 0; j < nbBot; j++) {
             // if (nbTest == 1) { br->recruit(new Humain); }
-            br->recruit(new Ghislain);
+            //br->recruit(new Ghislain);
+            //faut recruit un nouvel eclaireur
+            br->recruit(new Eclaireur);
             br->recruit(new Dumb);
         }
         br->run();
