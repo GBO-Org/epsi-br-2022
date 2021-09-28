@@ -5,7 +5,7 @@
 
 void setcolor(int color) {
     #ifdef _WIN32
-    SetConsoleTextAttribute(hstdout, color);
+    //SetConsoleTextAttribute(hstdout, color);
     #else
     cout << "\033[" + to_string(color) + "m";
     #endif

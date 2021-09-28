@@ -11,9 +11,6 @@ using namespace std;
 /** Gestion des couleurs de sortie console
  * Basée sur un extrait de arene_couleur.cpp */
 
-#ifdef _WIN32
-HANDLE hstdout;
-#endif
 
 #ifdef _WIN32
   #define BLUE 9
