@@ -168,7 +168,5 @@ void Fighter::suffer(int damage) {
  * Se base sur la statistique speed pour décréter le premier.
  */
 bool Fighter::compare(Fighter* a, Fighter* b) {
-    return 
-        (a->getSpeed() + ((rand() % 10) - 5)) >
-        (b->getSpeed() + ((rand() % 10) - 5));
+    return a->getSpeed() > b->getSpeed();
 }

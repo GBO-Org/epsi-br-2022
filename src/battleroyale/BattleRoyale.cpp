@@ -93,6 +93,7 @@ void BattleRoyale::run() {
 
 void BattleRoyale::runRound() {
     // On retrie notre liste de bot à chaque tour :
+    random_shuffle(this->bots.begin(), this->bots.end());
     sort(this->bots.begin(), this->bots.end(), Fighter::compare);
 
     for (FighterBot* bot : this->bots) {
