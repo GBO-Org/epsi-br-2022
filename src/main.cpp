@@ -13,6 +13,11 @@
 
 using namespace std;
 
+struct Stat {
+    string botName;
+    int nbWin = 0;
+};
+
 int main()
 {
     srand(time(NULL));
@@ -23,37 +28,57 @@ int main()
     int nbTest = 1;
     int nbBot = 1;
 
-    log("Combien de tours ? ", GREEN);
+    log("Combien de BattleRoyale ? ", GREEN);
     cin >> nbTest;
     logln("");
-    log("Combien de chaque bot ? ", GREEN);
+    log("Combien d'instance de chaque bot ? ", GREEN);
     cin >> nbBot;
     logln("");
     logln("");
 
-    int nbHumain = 0;
-    int nbGhislain = 0;
-    int nbDumb = 0;
+    bool found;
     BattleRoyale* br;
+    vector<Stat> stats;
 
     for (int i = 0; i < nbTest; i++) {
         br = new BattleRoyale(10, 100, nbTest == 1);
         for (int j = 0; j < nbBot; j++) {
-            // if (nbTest == 1) { br->recruit(new Humain); }
+            // br->recruit(new Humain);
             br->recruit(new Ghislain);
             br->recruit(new Dumb);
         }
         br->run();
 
-        if (br->getWinner()->getName() == "Ghislain") { nbGhislain++; }
-        if (br->getWinner()->getName() == "Dumb") { nbDumb++; }
-    }
+        // Calcul des statistiques
+        found = false;
+        for (int i = 0; i < stats.size(); i++) {
+            if (stats[i].botName == br->getWinner()->getName()) {
+                stats[i].nbWin++;
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            Stat stat;
+            stat.botName = br->getWinner()->getName();
+            stat.nbWin = 1;
+            stats.push_back(stat);
+        }
 
-    logln("");
-    logln("");
-    logln("");
-    logln("Ghislain = " + to_string(nbGhislain), GREEN);
-    logln("Dumb = " + to_string(nbDumb), GREEN);
+        // Affichage des statistiques
+        logln("");
+        logln("");
+        log("Statistiques après ", GREEN);
+        log(i + 1, BLUE);
+        logln(" BR :", GREEN);
+        for (Stat stat : stats) {
+            log(stat.botName, BLUE);
+            log(" = ");
+            log(stat.nbWin, RED);
+            logln(" victoires !");
+        }
+        delete br;
+    }
 
     return 0;
 }
