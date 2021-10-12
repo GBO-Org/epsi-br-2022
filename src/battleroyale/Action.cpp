@@ -9,6 +9,8 @@ Action::Action(string name) {
     this->name = name;
 }
 
+Action::~Action() { }
+
 string Action::getName() { return this->name; }
 void Action::setArena(Arena* arena) { this->arena = arena; }
 void Action::setFighters(vector<Fighter*> fighters) { this->fighters = fighters; }

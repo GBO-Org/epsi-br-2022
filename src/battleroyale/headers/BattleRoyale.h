@@ -19,8 +19,6 @@ private:
     vector<FighterBot*> bots;
     /** Une liste de tous les fighters KO dans leur ordre de KO. Pour les statistiques à posteriori */
     vector<FighterBot*> kos;
-    /** Une liste de fighters à donner aux actions */
-    vector<Fighter*> fighters;
     /** Un fighter winner pour les stats */
     FighterBot* winner;
 
