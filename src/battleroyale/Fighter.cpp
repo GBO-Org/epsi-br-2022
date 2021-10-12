@@ -32,6 +32,8 @@ Fighter::Fighter(string name, int attack, int defense, int speed) {
     // Stats à 0 par défaut
     this->x = 0;
     this->y = 0;
+    // Status
+    this->status = "";
 }
 
 /** Destructeur vide par defaut */
@@ -69,6 +71,8 @@ int Fighter::getSpeed() { return this->speed; }
 int Fighter::getLife() { return this->life; }
 int Fighter::getX() { return this->x; }
 int Fighter::getY() { return this->y; }
+string Fighter::getStatus() { return this->status; }
+void Fighter::setStatus(string status) { this->status = status; }
 
 void Fighter::display() { this->display("", true); }
 void Fighter::display(string message) { this->display(message, true); }
@@ -87,6 +91,8 @@ void Fighter::display(string message, bool newLine) {
     log(this->y);
     log(") [");
     log(this->life, RED);
+    log("] [");
+    log(this->status, GREEN);
     log("]");
     log(message);
     if (newLine) {
