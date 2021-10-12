@@ -26,6 +26,8 @@ using namespace std;
 
 void setcolor(int color);
 
+void loginit();
+
 /** Ecrire du texte sans retour chariot avec une éventuelle couleur */
 void log(int text);
 void log(string text);

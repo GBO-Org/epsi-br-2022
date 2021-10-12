@@ -19,7 +19,7 @@ Fighter::Fighter(string name, int attack, int defense, int speed) {
     this->id = pointer_to_string.str();
     // Une version courte de l'ID qui peut être utilisée pour l'affichage par exemple
     // On utilise la méthode substr pour ne conserver que les derniers caratères de l'ID
-    this->shortId = this->id.substr(this->id.size()-2);
+    this->shortId = this->id.substr(this->id.size()-4);
 
     this->life = 100;
 
@@ -29,7 +29,13 @@ Fighter::Fighter(string name, int attack, int defense, int speed) {
     this->speed = 0;
     // Puis respé
     this->setStats(attack, defense, speed);
+    // Stats à 0 par défaut
+    this->x = 0;
+    this->y = 0;
 }
+
+/** Destructeur vide par defaut */
+Fighter::~Fighter() { }
 
 void Fighter::setStats(int attack, int defense, int speed) {
     if (this->attack + this->defense + this->speed > 0) {
@@ -149,7 +155,7 @@ void Fighter::suffer(int damage) {
         );
     this->life = this->life - effective;
     this->display("", false);
-    log(" subit ");
+    log(" a subi ");
     log(effective, RED);
     log("(");
     log(damage, BLUE);
@@ -162,7 +168,5 @@ void Fighter::suffer(int damage) {
  * Se base sur la statistique speed pour décréter le premier.
  */
 bool Fighter::compare(Fighter* a, Fighter* b) {
-    return 
-        (a->getSpeed() + ((rand() % 10) - 5)) >
-        (b->getSpeed() + ((rand() % 10) - 5));
+    return a->getSpeed() > b->getSpeed();
 }
