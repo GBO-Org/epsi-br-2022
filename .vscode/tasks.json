@@ -4,7 +4,7 @@
 		{
 			"label": "build active file",
 			"type": "shell",
-			"command": "g++",
+			"command": "g++.exe",
 			"args": [
 				"-g",
 				"${file}",

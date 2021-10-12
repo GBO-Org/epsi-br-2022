@@ -5,8 +5,8 @@
 
 #include "Arena.h"
 #include "BattleRoyale.h"
-
 #include "Dumb.h"
+#include "Axelbot.h"
 #include "Ghislain.h"
 #include "Humain.h"
 #include "log.h"
@@ -33,6 +33,7 @@ int main()
 
     int nbHumain = 0;
     int nbGhislain = 0;
+    int nbAxel = 0;
     int nbDumb = 0;
     BattleRoyale* br;
 
@@ -41,19 +42,24 @@ int main()
         for (int j = 0; j < nbBot; j++) {
             // if (nbTest == 1) { br->recruit(new Humain); }
             br->recruit(new Ghislain);
-            br->recruit(new Dumb);
+            br->recruit(new Axel);
+            //br->recruit(new Dumb);
         }
         br->run();
 
-        if (br->getWinner()->getName() == "Ghislain") { nbGhislain++; }
-        if (br->getWinner()->getName() == "Dumb") { nbDumb++; }
+      if (br->getWinner()->getName() == "Ghislain") { nbGhislain++; }
+        if (br->getWinner()->getName() == "Axel") { nbAxel++; }
+
+        //if (br->getWinner()->getName() == "Dumb") { nbDumb++; }
     }
 
     logln("");
     logln("");
     logln("");
     logln("Ghislain = " + to_string(nbGhislain), GREEN);
-    logln("Dumb = " + to_string(nbDumb), GREEN);
+    logln("Axel = " + to_string(nbAxel), GREEN);
+
+   // logln("Dumb = " + to_string(nbDumb), GREEN);
 
     return 0;
 }

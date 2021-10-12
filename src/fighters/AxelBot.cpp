@@ -3,15 +3,15 @@
 
 #include "ActionMove.h"
 #include "ActionAttack.h"
-#include "Ghislain.h"
+#include "AxelBot.h"
 
 using namespace std;
 
-Ghislain::Ghislain() : FighterBot("Ghislain", 15, 14, 1) {
+Axel::Axel() : FighterBot("Axel", 9, 20, 1) {
     this->targetId = "";
 }
 
-Fighter Ghislain::selectTarget(Arena arena) {
+Fighter Axel::selectTarget(Arena arena) {
     vector<Fighter> fighters = arena.get();
     Fighter target = *this;
 
@@ -19,23 +19,23 @@ Fighter Ghislain::selectTarget(Arena arena) {
     if (this->targetId == "") {
         // Reste-t-il autre chose que des Ghislain dans l'arene ?
         // Parce que bon, on va d'abord viser les autres avant de se taper dessus ^_^'
-        bool onlyGhislain = true;
+        bool onlyAxel = true;
         for (Fighter fighter : fighters) {
-            if (fighter.getName() != "Ghislain") {
-                onlyGhislain = false;
+            if (fighter.getName() != "Axel") {
+                onlyAxel = false;
                 break;
             }
         }
 
         // Choisissons, maintenant. . . 
-        if (onlyGhislain) {
+        if (onlyAxel) {
             // On choisit n'importe qui d'autre dans l'arène
             while (target.isMe(this)) {
                 target = fighters[rand() % fighters.size()];
             }
         } else {
             // On ne choisit pas un bro'
-            while (target.isMe(this) || (target.getName() == "Ghislain")) {
+            while (target.isMe(this) || (target.getName() == "Axel")) {
                 target = fighters[rand() % fighters.size()];
             }
         }
@@ -65,7 +65,7 @@ Fighter Ghislain::selectTarget(Arena arena) {
     return target;
 }
 
-Action* Ghislain::choose(Arena arena) {
+Action* Axel::choose(Arena arena) {
     Action* action = nullptr;
 
     // On retrouve notre cible

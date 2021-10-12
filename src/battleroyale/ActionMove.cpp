@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include <string>
 #include "ActionMove.h"
 
 using namespace std;

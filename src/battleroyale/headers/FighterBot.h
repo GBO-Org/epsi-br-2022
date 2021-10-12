@@ -15,6 +15,7 @@ class FighterBot : public Fighter {
 private:
     /** Le round de KO */
     int koRound;
+    /** le statut*/
 
 public:
     /** Constructeur */
