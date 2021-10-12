@@ -13,6 +13,8 @@ Valentin::Valentin() : FighterBot("Valentin", 15, 0, 15) {
 }
 
 Fighter Valentin::selectHunter(Arena arena) {
+
+    cout << "test";
     vector<Fighter> fighters = arena.get();
     Fighter hunter = *this;
 
@@ -55,12 +57,28 @@ Action* Valentin::choose(Arena arena){
 
     Fighter hunter = this->selectHunter(arena);
 
-    action = new ActionMove(this->getX()-hunter.getX(),this->getY()-hunter.getY());
+    Action* possibilite1 = new ActionMove(this->getX()-hunter.getX(),this->getY()-hunter.getY());
+    possibilite1->setArena(&arena);
+    possibilite1->setFighter(this);
+    Action* possibilite2 = new ActionMove(rand() % 3 - 1,rand() % 3 - 1);
+    possibilite2->setArena(&arena);
+    possibilite2->setFighter(this);
+    Action* possibilite3 = new ActionAttack(hunter);
+    
+    action = possibilite1;
     
     if( (this->getX()-hunter.getX())==0 && (this->getY()-hunter.getY())==0){
-        action = new ActionMove(rand() % 3 - 1,rand() % 3 - 1);
-
-    }else if(!action->isValid() && hunter.isHere(this) ){
-        action = new ActionAttack(hunter);
+    action = possibilite2;
     }
+    if(!action->isValid() && hunter.isHere(this) ){
+        action = possibilite3;   
+    }
+
+    if(action == possibilite1){
+        action = new ActionMove(this->getX()-hunter.getX(),this->getY()-hunter.getY());
+    }else if(action == possibilite2){
+        action = new ActionMove(rand() % 3 - 1,rand() % 3 - 1);
+    }
+
+    return action;
 }
