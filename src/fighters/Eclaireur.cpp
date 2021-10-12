@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 
 #include "ActionMove.h"
 #include "ActionAttack.h"
@@ -13,7 +14,6 @@ Eclaireur::Eclaireur() : FighterBot("Eclaireur", 5, 12, 13) {
 Fighter Eclaireur::selectTarget(Arena arena) {
     vector<Fighter> fighters = arena.get();
     Fighter target = *this;
-
     // Pas de cible retenu, on en choisit une !
     if (this->targetId == "EC") {
 
@@ -73,6 +73,9 @@ si plus personne, ils se tatannent entre eux
 
 Action* Eclaireur::choose(Arena arena) {
     Action* action = nullptr;
+    bool hasAttacked=false;  
+    vector<Fighter> fighters = arena.get();
+
 
     // On retrouve notre cible
     Fighter target = this->selectTarget(arena);
@@ -80,11 +83,18 @@ Action* Eclaireur::choose(Arena arena) {
         action=new ActionMove(target.getX()-this->getX(), target.getY()-this->getY());
     }
     // Sommes-nous sur la case de la cible ?
-    if (target.isHere(this)) {
-        action = new ActionAttack(target);
+    if (target.isHere(this)&&!hasAttacked) {
+        action = new ActionAttack(target);//On tape
+              hasAttacked=true;
+        while (target.isMe(this) || (target.getName() == "Eclaireur")||(target.isHere(this))) {
+                target = fighters[rand() % fighters.size()];
+            }//Et on target un autre bot
 
     // Sinon, allons-y !
-    } else {
+    }else if(target.isHere(this)&&hasAttacked){
+        action=new ActionMove(this->getX()-3, this->getY()-5);
+        hasAttacked=false;
+    }else {
         action = new ActionMove(target.getX() - this->getX(), target.getY() - this->getY());
     }
 

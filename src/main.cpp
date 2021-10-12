@@ -36,6 +36,7 @@ int main()
     int nbHumain = 0;
     int nbGhislain = 0;
     int nbDumb = 0;
+    int nbEclaireur=0;
     BattleRoyale* br;
 
     for (int i = 0; i < nbTest; i++) {
@@ -45,12 +46,14 @@ int main()
             //br->recruit(new Ghislain);
             //faut recruit un nouvel eclaireur
             br->recruit(new Eclaireur);
+            br->recruit(new Ghislain);
             br->recruit(new Dumb);
         }
         br->run();
 
         if (br->getWinner()->getName() == "Ghislain") { nbGhislain++; }
         if (br->getWinner()->getName() == "Dumb") { nbDumb++; }
+        if (br->getWinner()->getName() == "Eclaireur") { nbEclaireur++; }
     }
 
     logln("");
@@ -58,6 +61,7 @@ int main()
     logln("");
     logln("Ghislain = " + to_string(nbGhislain), GREEN);
     logln("Dumb = " + to_string(nbDumb), GREEN);
+    logln("Eclaireur = " + to_string(nbEclaireur), GREEN);
 
     return 0;
 }
