@@ -15,6 +15,7 @@ string ActionAttack::getDisplay() {
 
 bool ActionAttack::isValid() {
     // On retrouve le Fighter effectif dans les Fighters
+    this->target = nullptr;
     for (Fighter* fighter : this->fighters) {
         if (fighter->getId() == this->targetId) {
             this->target = fighter;
@@ -22,7 +23,8 @@ bool ActionAttack::isValid() {
         }
     }
     // On vérifie que la cible est bien dans la même case que l'attaquant */
-    return this->fighter->isHere(this->target->getX(), this->target->getY());
+    return (this->target != nullptr) &&
+            this->fighter->isHere(this->target->getX(), this->target->getY());
 }
 
 void ActionAttack::perform() {

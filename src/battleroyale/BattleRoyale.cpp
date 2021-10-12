@@ -20,9 +20,12 @@ BattleRoyale::BattleRoyale(int size, int roundLimit, bool pause) {
     this->arena = new Arena(size, size);
 }
 
-/** Le desctructeur ne déglingue que le this->arena */
+/** Le desctructeur nettoie le this->arena et tous les bots !! */
 BattleRoyale::~BattleRoyale() {
     delete this->arena;
+    for (FighterBot* bot : this->bots) {
+        delete bot;
+    }
 }
 
 Arena BattleRoyale::getArena() { return (*this->arena); }
@@ -34,7 +37,6 @@ void BattleRoyale::recruit(FighterBot* fighter) {
     fighter->moveTo(rand() % this->size, rand() % this->size);
     // ...Et on l'ajoute dans toutes nos listes ^_^'
     this->arena->add(fighter);
-    this->fighters.push_back(fighter);
     this->bots.push_back(fighter);
 }
 
@@ -91,7 +93,12 @@ void BattleRoyale::run() {
 
 void BattleRoyale::runRound() {
     // On retrie notre liste de bot à chaque tour :
+<<<<<<< HEAD
    // sort(this->bots.begin(), this->bots.end(), Fighter::compare);
+=======
+    random_shuffle(this->bots.begin(), this->bots.end());
+    sort(this->bots.begin(), this->bots.end(), Fighter::compare);
+>>>>>>> 5f44a3308f511ae1ad9d7c452d3c22d97990be34
 
     for (FighterBot* bot : this->bots) {
         // Ne jouent que les bots non KO
@@ -109,9 +116,16 @@ void BattleRoyale::runRoundFighter(FighterBot* bot) {
         bot->display(" ne fait rien . . .");
     } else {
         bot->display(" choisit " + action->getDisplay());
+        // On construit la liste des fighters non KO
+        vector<Fighter*> fighters;
+        for (FighterBot* bot : this->bots) {
+            if (!bot->isKO()) {
+                fighters.push_back(bot);
+            }
+        }
         // On remplit l'action avec tout le nécessaire à son execution
         action->setArena(this->arena);
-        action->setFighters(this->fighters);
+        action->setFighters(fighters);
         action->setFighter(bot);
         // On vérifie que le choix est valide
         if (action->isValid()) {
@@ -121,6 +135,7 @@ void BattleRoyale::runRoundFighter(FighterBot* bot) {
             // ...Sinon, on indique qu'on exécutera pas l'action
             logln("Action interdite !!", RED);
         }
+        delete action;
     }
 }
 

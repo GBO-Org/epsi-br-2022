@@ -9,6 +9,7 @@ using namespace std;
 
 Ghislain::Ghislain() : FighterBot("Ghislain", 15, 15, 0) {
     this->targetId = "";
+    this->setStatus("content");
 }
 
 Fighter Ghislain::selectTarget(Arena arena) {

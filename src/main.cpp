@@ -16,6 +16,7 @@ using namespace std;
 
 int main()
 {
+    loginit();
     srand(time(NULL));
 
     cout << "Battle Royale 2022" << endl;

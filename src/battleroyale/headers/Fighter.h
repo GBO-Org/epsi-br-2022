@@ -26,9 +26,13 @@ private:
     /** Position */
     int x, y;
 
+    /** Le statut (moyen de communication ?) */
+    string status;
+
 public:
     /** Constructeurs */
     Fighter(string name, int attack, int defense, int speed);
+    virtual ~Fighter();
 
     /** Accesseurs (getters) / mutateurs (setters) */
     string getName();
@@ -42,6 +46,8 @@ public:
     int getX();
     int getY();
     void setStats(int attack, int defense, int speed);
+    string getStatus();
+    void setStatus(string status);
 
     /** Affichage */
     void display();
