@@ -91,7 +91,7 @@ void BattleRoyale::run() {
 
 void BattleRoyale::runRound() {
     // On retrie notre liste de bot à chaque tour :
-    sort(this->bots.begin(), this->bots.end(), Fighter::compare);
+   // sort(this->bots.begin(), this->bots.end(), Fighter::compare);
 
     for (FighterBot* bot : this->bots) {
         // Ne jouent que les bots non KO

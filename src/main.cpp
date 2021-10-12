@@ -9,6 +9,7 @@
 #include "Dumb.h"
 #include "Ghislain.h"
 #include "Humain.h"
+#include "Alexandre.h"
 #include "log.h"
 
 using namespace std;
@@ -31,8 +32,7 @@ int main()
     logln("");
     logln("");
 
-    int nbHumain = 0;
-    int nbGhislain = 0;
+    int nbAlexandre = 0;
     int nbDumb = 0;
     BattleRoyale* br;
 
@@ -40,19 +40,20 @@ int main()
         br = new BattleRoyale(10, 100, nbTest == 1);
         for (int j = 0; j < nbBot; j++) {
             // if (nbTest == 1) { br->recruit(new Humain); }
-            br->recruit(new Ghislain);
+            //br->recruit(new Ghislain);
             br->recruit(new Dumb);
         }
+        br->recruit(new Alexandre);
         br->run();
 
-        if (br->getWinner()->getName() == "Ghislain") { nbGhislain++; }
+        if (br->getWinner()->getName() == "Alexandre") { nbAlexandre++; }
         if (br->getWinner()->getName() == "Dumb") { nbDumb++; }
     }
 
     logln("");
     logln("");
     logln("");
-    logln("Ghislain = " + to_string(nbGhislain), GREEN);
+    logln("Alexandre = " + to_string(nbAlexandre), GREEN);
     logln("Dumb = " + to_string(nbDumb), GREEN);
 
     return 0;

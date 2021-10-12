@@ -15,7 +15,7 @@
             "windows": {
                 "program": "${workspaceFolder}/bin/battleroyale.exe",
                 "MIMode": "gdb",
-                "miDebuggerPath": "<Path/To/GDB>", // Path to gdb on windows
+                //"miDebuggerPath": "<Path/To/GDB>", // Path to gdb on windows
 				"args": []
             },
             "linux": {
