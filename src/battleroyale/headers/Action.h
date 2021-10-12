@@ -26,7 +26,8 @@ protected:
 public:
     /** Constructeur simple avec le nom obligatoire */
     Action(string name);
-
+    virtual ~Action();
+    
     /** Accesseurs (getters) / mutateurs (setters) */
     string getName();
     void setArena(Arena* arena);

@@ -29,7 +29,7 @@ private:
 public:
     /** Constructeurs */
     Fighter(string name, int attack, int defense, int speed);
-
+    virtual ~Fighter();
     /** Accesseurs (getters) / mutateurs (setters) */
     string getName();
     string getNameId();
