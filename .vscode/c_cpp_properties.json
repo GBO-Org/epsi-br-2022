@@ -10,7 +10,13 @@
         },
         {
             "name": "Win32",
-            "cppStandard": "c++11"
+            "cppStandard": "c++11",
+            "includePath": [
+                "${default}",
+                "${workspaceFolder}/src/battleroyale/headers",
+                "${workspaceFolder}/src/fighters/headers"
+            ],
+            "compilerPath": "C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/gcc.exe"
         }
     ],
     "version": 4

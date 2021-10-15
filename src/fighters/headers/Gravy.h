@@ -12,11 +12,27 @@ private:
     string targetId;
 
     Fighter selectTarget(Arena arena);
+    Fighter selectTarget(Arena arena, int x, int y);
+
+    void run(Arena arena);
 
 public:
     Gravy();
 
     virtual Action* choose(Arena arena);
+};
+
+class Enemy {
+    private : 
+    int x;
+    int y;
+
+    public : 
+    int getX();
+    int getY();
+
+    Enemy(int x, int y);
+
 };
 
 #endif //FIGHTERS_GRAVY_H
