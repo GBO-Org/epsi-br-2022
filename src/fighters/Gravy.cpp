@@ -77,6 +77,15 @@ vector<Position> CalculatePotentialPositions(vector<Position> enemyPositions) {
     return posAvalable;
 }
 
+/* 
+ Dans cette fonction je compare les 2 vectors afin de return une position 
+ faisant partie du vector "MyPotentialPos" mais ne faisant pas partie 
+ du vector "EnemyPotentialPos"
+*/
+Position CalculateBestPosition(vector<Position> MyPotentialPos, vector<Position> EnemyPotentialPos) {
+
+};
+
 Position CheckPosAvailable(vector<Position> enemyPos, Gravy myBot) {
     /*
     todo :
@@ -90,10 +99,20 @@ Position CheckPosAvailable(vector<Position> enemyPos, Gravy myBot) {
             / Et je cherche celui contre lequel j'ai le plus de chances de
             gagner et je me dirige vers lui (puique je n'ai pas d'autres choix)
     */
+
+    // Calcul des positions que mon bot peut prendre
     vector<Position> MyPotentialPos;
     MyPotentialPos = CalculatePotentialPositions(myBot);
+
+    // Calcul des positions que peuvent prendre les ennemis encore présents
+    // dans l'arene
     vector<Position> EnemyPotentialPos;
     EnemyPotentialPos = CalculatePotentialPositions(enemyPos);
+
+    // Je compare les résultat des 2 fonctions précédentes pour décider
+    // de la position la plus optimale à la survie de mon bot
+    Position bestPosition;
+    bestPosition = CalculateBestPosition(MyPotentialPos, EnemyPotentialPos);
 
 }
 
