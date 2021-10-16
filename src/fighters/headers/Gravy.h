@@ -14,8 +14,6 @@ private:
     Fighter selectTarget(Arena arena);
     Fighter selectTarget(Arena arena, int x, int y);
 
-    void run(Arena arena);
-
 public:
     Gravy();
 
