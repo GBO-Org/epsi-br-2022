@@ -16,11 +16,72 @@ struct Position
 // TODO faire la doc sur mes fonctions et classes, surtout class Enemy et 
 // fonction selectTarget(Arena arena, int x, int y)
 
-Position CheckPosAvailable(vector<Position> posis) {
+/*
+La fonction CalculatePotentialPossitions(Gravy myBot) permet de retourner un 
+vector contenant les positions potentielles de mon bot ^^
+Je me base sur le carré de 9 cases autour de la position de mon bot dans l'arene
+ainsi je peux savoir quelles positions il peut prendre pour le prochain tour
+ça nous servira plus tard ;) 
+*/
+vector<Position> CalculatePotentialPositions(Gravy myBot) {
+    int tmpX = -1;
+    int tmpY = -1;
+    vector<Position> posAvalable;
+    // J'initialise les varables dont j'ai besoin pour calculer les positions
+    // que je peux prendre dans l'arene
+    for (int a = 0; a <= 8; a++) {
+        posAvalable[a].x = myBot.getX() - tmpX;
+        posAvalable[a].y = myBot.getY() - tmpY;
+        tmpX++;
+         // ici je prend ma position en X et Y et je lui enlève un nombre entre
+         // -1 et 1 afin de pouvoir calculer toutes les options s'offrant à mon
+         // bot en termes de déplacements
+        if (a == 2 || a == 5) {
+            tmpX = 0;
+            tmpY++;
+            // J'incrémente la valeur enlevée à X à chaque itération du for,
+            // et une fois que j'ai atteint la fin de la ligne X que
+            // mon personnage peut effectuer, je remet la valeur que j'enlève
+            // à X à 0 et j'incrémente la valeur enlevée à Y pour passer à la ligne
+            // horizontale suivante
+        }
+    }
+    return posAvalable;
+}
+/*
+La fonction CalculatePotentialPossitions(vector<Position> enemyPositions) va quant
+à elle effectuer la même fonction que la fonction décrite ci-dessus à l'exception
+près que cette dernière va prendre en argument des positions dans un vector au lieu
+d'un bot de la classe Gravy. En l'occurrence ici les positions de tous les ennemis
+de l'arène encore présents.
+
+Le fonctionnement logique étant le même que la fonction décrite ci-dessus je vous
+laisse remonter sur les commentaires présents sur la fonction sus-metionée pour
+comprendre le fonctionnement de la fonction suivante.
+*/
+vector<Position> CalculatePotentialPositions(vector<Position> enemyPositions) {
+    int tmpX = -1;
+    int tmpY = -1;
+    vector<Position> posAvalable;
+    for (int b = 0; b < enemyPositions.size(); b++) {
+        for (int a = 0; a <= 8; a++) {
+            posAvalable[a].x = enemyPositions[b].x - tmpX;
+            posAvalable[a].y = enemyPositions[b].y - tmpY;
+            tmpX++;
+            if (a == 2 || a == 5) {
+                tmpX = 0;
+                tmpY++;
+            }
+        }
+    }
+    return posAvalable;
+}
+
+Position CheckPosAvailable(vector<Position> enemyPos, Gravy myBot) {
     /*
     todo :
-    - check les positions autour de moi que je peux prendre
-    - check les positions à eviter dans posis
+    x - check les positions autour de moi que je peux prendre
+    x - check les positions à eviter dans posis
     - voir les positions restantes puis :
         . Soit une position est disponible et j'y vais : this->moveTo();
         . Soit auccune position safe n'est disponible dans ce cas :
@@ -29,6 +90,11 @@ Position CheckPosAvailable(vector<Position> posis) {
             / Et je cherche celui contre lequel j'ai le plus de chances de
             gagner et je me dirige vers lui (puique je n'ai pas d'autres choix)
     */
+    vector<Position> MyPotentialPos;
+    MyPotentialPos = CalculatePotentialPositions(myBot);
+    vector<Position> EnemyPotentialPos;
+    EnemyPotentialPos = CalculatePotentialPositions(enemyPos);
+
 }
 
 Gravy::Gravy() : FighterBot("HowBaka", 20, 10, 0) {
@@ -71,16 +137,8 @@ Fighter Gravy::selectTarget(Arena arena, int x, int y) {
             AvoidPositions[z].x = tmpX;
             AvoidPositions[z].y = tmpY;
         }
-        Position pos = CheckPosAvailable(AvoidPositions);
+        Position pos = CheckPosAvailable(AvoidPositions, *this);
     }
-}
-
-void Gravy::run(Arena arena) {
-    /* 
-    J'ai décidé de faire du polymorphisme ici puisque je vais réaliser la même
-    fonction mais avec une autre optique en tête ;) 
-    */
-    this->selectTarget(arena, this->getX(), this->getY());
 }
 
 Fighter Gravy::selectTarget(Arena arena) {
@@ -89,7 +147,11 @@ Fighter Gravy::selectTarget(Arena arena) {
 
     // Si j'ai plus beaucoup de vie je change de tactique
     if(this->getLife() <= 25) {
-        this->run(arena);
+        /* 
+        J'ai décidé de surcharger la fonction selectTarget ici puisque je vais
+        choisir une cible mais avec une autre optique en tête :)
+        */
+        this->selectTarget(arena, this->getX(), this->getY());
     }
 
     else {
