@@ -11,17 +11,16 @@ struct Position
 {
     int x;
     int y;
+    bool goodPos;
 };
 
 // TODO faire la doc sur mes fonctions et classes, surtout class Enemy et 
 // fonction selectTarget(Arena arena, int x, int y)
 
 /*
-La fonction CalculatePotentialPossitions(Gravy myBot) permet de retourner un 
-vector contenant les positions potentielles de mon bot ^^
-Je me base sur le carré de 9 cases autour de la position de mon bot dans l'arene
-ainsi je peux savoir quelles positions il peut prendre pour le prochain tour
-ça nous servira plus tard ;) 
+La fonction CalculatePotentialPossitions(Gravy myBot) permet de retourner un vector contenant les positions potentielles de mon bot ^^
+Je me base sur le carré de 9 cases autour de la position de mon bot dans l'arene ainsi je peux savoir quelles positions il peut prendre pour le prochain tour ça 
+nous servira plus tard ;) 
 */
 vector<Position> CalculatePotentialPositions(Gravy myBot) {
     int tmpX = -1;
@@ -49,14 +48,9 @@ vector<Position> CalculatePotentialPositions(Gravy myBot) {
     return posAvalable;
 }
 /*
-La fonction CalculatePotentialPossitions(vector<Position> enemyPositions) va quant
-à elle effectuer la même fonction que la fonction décrite ci-dessus à l'exception
-près que cette dernière va prendre en argument des positions dans un vector au lieu
-d'un bot de la classe Gravy. En l'occurrence ici les positions de tous les ennemis
-de l'arène encore présents.
-
-Le fonctionnement logique étant le même que la fonction décrite ci-dessus je vous
-laisse remonter sur les commentaires présents sur la fonction sus-metionée pour
+La fonction CalculatePotentialPossitions(vector<Position> enemyPositions) va quant à elle effectuer la même fonction que la fonction décrite ci-dessus à l'exception près 
+que cette dernière va prendre en argument des positions dans un vector au lieu d'un bot de la classe Gravy. En l'occurrence ici les positions de tous les ennemis de l'arène
+encore présents. Le fonctionnement logique étant le même que la fonction décrite ci-dessus je vous laisse remonter sur les commentaires présents sur la fonction sus-metionée pour
 comprendre le fonctionnement de la fonction suivante.
 */
 vector<Position> CalculatePotentialPositions(vector<Position> enemyPositions) {
@@ -77,16 +71,76 @@ vector<Position> CalculatePotentialPositions(vector<Position> enemyPositions) {
     return posAvalable;
 }
 
-/* 
- Dans cette fonction je compare les 2 vectors afin de return une position 
- faisant partie du vector "MyPotentialPos" mais ne faisant pas partie 
- du vector "EnemyPotentialPos"
-*/
-Position CalculateBestPosition(vector<Position> MyPotentialPos, vector<Position> EnemyPotentialPos) {
-
+ 
+// Dans cette fonction je compare les 2 vectors afin de return une position faisant partie du vector "MyPotentialPos" mais ne faisant pas partie du vector "EnemyPotentialPos"
+void CalculateBestPosition(vector<Position> MyPotentialPos, vector<Position> EnemyPotentialPos) {
+    // J'ai ici décidé de réaliser une double boucle for qui va comparer les positions contenus dans les 2 vectors et ainsi marquer les positions viables à la survie de mon bot :) 
+    for (int i = 0; i < MyPotentialPos.size(); i++)
+    {
+        for (int y = 0; y < EnemyPotentialPos.size(); y++)
+        {
+            if (MyPotentialPos[i].x != EnemyPotentialPos[y].x && MyPotentialPos[i].y != EnemyPotentialPos[y].y)
+            {
+                MyPotentialPos[i].goodPos = true;
+            }
+        }
+    }
+    
 };
 
-Position CheckPosAvailable(vector<Position> enemyPos, Gravy myBot) {
+Position ChooseBestPosition(vector<Position> MyPossiblePositions) {
+    for(int i = 0; i < MyPossiblePositions.size(); i++) {
+        if (MyPossiblePositions[i].goodPos == true) {
+            return MyPossiblePositions[i];
+        }
+    }
+};
+
+Fighter Gravy::findTarget (Fighter target, vector<Fighter> fighters, bool friendInArena) {
+
+    target = randFighter(friendInArena, fighters, target);
+                
+    // On "scanne" l'ennemi désigné pour voir si l'on a nos chances ou pas contre lui
+    while (target.getAttack() > this->getAttack() || target.getAttack() > this->getDefense() * 1.5) {
+        target = randFighter(friendInArena, fighters, target);
+    }
+
+    // ...On retient son Id
+    this->targetId = target.getId();
+    // ...Et on le dit :)
+    this->display(" désigne comme cible " + target.getNameId());
+};
+
+bool checkFriends(vector<Fighter> fighters) {
+    // bool pour pas tapper les coupains
+    bool Axebita = false;
+    bool Teyir = false;
+    bool Cam = false;
+    bool Mathurin = false;
+
+    for (Fighter fighter : fighters) {
+        if (fighter.getName() != "Axebita") {
+            Axebita = true;
+        }
+        else if (fighter.getName() != "Teyir") {
+            Teyir = true;
+        }
+        else if (fighter.getName() != "Cam") {
+            Cam = true;
+        }
+        else if (fighter.getName() != "Mathurin") {
+            Mathurin = true;
+        }
+    }
+
+    bool friendInArena;
+
+    if (Axebita || Teyir || Mathurin || Cam) {
+        friendInArena = true;
+    }
+}
+
+Position Gravy::CheckPosAvailable(vector<Position> enemyPos, Gravy myBot, vector<Fighter> fighters) {
     /*
     todo :
     x - check les positions autour de moi que je peux prendre
@@ -111,12 +165,23 @@ Position CheckPosAvailable(vector<Position> enemyPos, Gravy myBot) {
 
     // Je compare les résultat des 2 fonctions précédentes pour décider
     // de la position la plus optimale à la survie de mon bot
-    Position bestPosition;
-    bestPosition = CalculateBestPosition(MyPotentialPos, EnemyPotentialPos);
+    
+    CalculateBestPosition(MyPotentialPos, EnemyPotentialPos);
 
+    // Maintenant que j'ai "marqué" les positions qui m'interessent je vais décider dans la fonction suivante du comportement de mon bot
+    Position optimalPosition;
+    optimalPosition = ChooseBestPosition(MyPotentialPos);
+    
+    // Dans le cas ou aucune position optimale (ou je peux me déplacer et ou l'ennemi ne peut aller) je prend une position aléatoire autour de moi ^^'
+    if ((optimalPosition.x && optimalPosition.y) == NULL) {
+        optimalPosition.x = MyPotentialPos[rand() % MyPotentialPos.size()].x;
+        optimalPosition.y = MyPotentialPos[rand() % MyPotentialPos.size()].y;
+    }
+
+    return optimalPosition;
 }
 
-Gravy::Gravy() : FighterBot("HowBaka", 20, 10, 0) {
+Gravy::Gravy() : FighterBot("HowBaka", 0, 0, 30) {
     this->targetId = "";
 }
 
@@ -134,7 +199,7 @@ int Enemy::getY() {
 }
 
 // Ma fonction selectTarget afin de donner plus de chances à mon bot
-Fighter Gravy::selectTarget(Arena arena, int x, int y) {
+Position Gravy::selectTarget(Arena arena, int x, int y) {
     int enemyX;
     int enemyY;
     int tmp = 0;
@@ -156,59 +221,41 @@ Fighter Gravy::selectTarget(Arena arena, int x, int y) {
             AvoidPositions[z].x = tmpX;
             AvoidPositions[z].y = tmpY;
         }
-        Position pos = CheckPosAvailable(AvoidPositions, *this);
     }
+    return CheckPosAvailable(AvoidPositions, *this, fighters);
+}
+
+Fighter Gravy::randFighter (bool friendInArena, vector<Fighter> fighters, Fighter target) {
+    // On ne choisit pas un coupain dans l'arene
+    if (friendInArena) {
+        while (target.isMe(this) || (target.getName() == "HowBaka") || (target.getName() == "Axebita") || (target.getName() == "Teyir") || (target.getName() == "Cam") || (target.getName() == "Mathurin")) {
+            target = fighters[rand() % fighters.size()];
+        }
+    }
+    else {
+        target = fighters[rand() % fighters.size()];
+    }
+    return target;
 }
 
 Fighter Gravy::selectTarget(Arena arena) {
     vector<Fighter> fighters = arena.get();
     Fighter target = *this;
-
-    // Si j'ai plus beaucoup de vie je change de tactique
-    if(this->getLife() <= 25) {
-        /* 
-        J'ai décidé de surcharger la fonction selectTarget ici puisque je vais
-        choisir une cible mais avec une autre optique en tête :)
-        */
-        this->selectTarget(arena, this->getX(), this->getY());
-    }
-
-    else {
         // Pas de cible retenu, on en choisit une !
         if (this->targetId == "") {
             // Reste-t-il autre chose que des Ghislain dans l'arene ?
             // Parce que bon, on va d'abord viser les autres avant de se taper dessus ^_^'
             bool onlyGravy = true;
             for (Fighter fighter : fighters) {
-                if (fighter.getName() != "Gravy") {
+                if (fighter.getName() != "HowBaka") {
                     onlyGravy = false;
                     break;
                 }
             }
 
-            // Choisissons, maintenant. . . 
-            if (onlyGravy) {
-                // On choisit n'importe qui d'autre dans l'arène
-                while (target.isMe(this)) {
-                    target = fighters[rand() % fighters.size()];
-                }
-            } else {
-                // On ne choisit pas un bro'
-                while (target.isMe(this) || (target.getName() == "HowBaka")) {
-                    target = fighters[rand() % fighters.size()];
-                }
-            }
-
-            // On "scanne" l'ennemi désigné pour voir si l'on a nos chances ou pas contre lui
-            if (target.getAttack() > this->getAttack() || target.getAttack() > this->getDefense() * 1.5) {
-                // Si l'on a pas nos chances contre cet ennemi on change de cible
-                target = this->selectTarget(arena);
-            }
-
-            // ...On retient son Id
-            this->targetId = target.getId();
-            // ...Et on le dit :)
-            this->display(" désigne comme cible " + target.getNameId());
+            bool friendsInArena = 0;
+            friendsInArena = checkFriends(fighters);
+            findTarget(target, fighters, friendsInArena);
 
         // Sinon, on cherche notre cible dans l'arène
         } else {
@@ -227,25 +274,32 @@ Fighter Gravy::selectTarget(Arena arena) {
                 target = this->selectTarget(arena);
             }
         }
-    }
 
     return target;
 }
 
 Action* Gravy::choose(Arena arena) {
     Action* action = nullptr;
+    Position SafePosition;
 
-    // On retrouve notre cible
-    Fighter target = this->selectTarget(arena);
-
-    // Sommes-nous sur la case de la cible ?
-    if (target.isHere(this)) { 
-            action = new ActionAttack(target);
-
-    // Sinon, allons-y !
-    } else {
-        action = new ActionMove(target.getX() - this->getX(), target.getY() - this->getY());
+    if (this->getLife() < 25) {
+        SafePosition = this->selectTarget(arena, this->getX(), this->getY());
+        this->moveTo(SafePosition.x, SafePosition.y);
     }
 
-    return action;
+    else {
+        // On retrouve notre cible
+        Fighter target = this->selectTarget(arena);
+        // Sommes-nous sur la case de la cible ?
+        if (target.isHere(this)) { 
+            action = new ActionAttack(target);
+
+        // Sinon, allons-y !
+        } else {
+            action = new ActionMove(target.getX() - this->getX(), target.getY() - this->getY());
+        }
+
+        return action;
+    }
+    
 }

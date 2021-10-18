@@ -12,11 +12,14 @@ private:
     string targetId;
 
     Fighter selectTarget(Arena arena);
-    Fighter selectTarget(Arena arena, int x, int y);
+    Position selectTarget(Arena arena, int x, int y);
+    Fighter randFighter(bool friendInArena, vector<Fighter> fighters, Fighter target);
+    Fighter findTarget(Fighter target, vector<Fighter> fighters, bool friendInArena);
+    Position CheckPosAvailable(vector<Position> enemyPos, Gravy myBot, vector<Fighter> fighters);
 
 public:
     Gravy();
-
+    
     virtual Action* choose(Arena arena);
 };
 

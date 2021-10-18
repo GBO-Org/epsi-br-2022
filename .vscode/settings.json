@@ -17,6 +17,8 @@
         "typeinfo": "cpp",
         "functional": "cpp",
         "chrono": "cpp",
-        "memory": "cpp"
+        "memory": "cpp",
+        "algorithm": "cpp",
+        "iostream": "cpp"
     }
 }
