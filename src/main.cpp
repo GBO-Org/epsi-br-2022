@@ -9,6 +9,7 @@
 #include "Dumb.h"
 #include "Ghislain.h"
 #include "Humain.h"
+#include "Megapoi2.h"
 #include "log.h"
 
 using namespace std;
@@ -35,6 +36,7 @@ int main()
     int nbHumain = 0;
     int nbGhislain = 0;
     int nbDumb = 0;
+    int nbMegapoi2 = 0;
     BattleRoyale* br;
 
     for (int i = 0; i < nbTest; i++) {
@@ -43,16 +45,18 @@ int main()
             // if (nbTest == 1) { br->recruit(new Humain); }
             br->recruit(new Ghislain);
             br->recruit(new Dumb);
+            br->recruit(new Megapoi2);
         }
         br->run();
 
         if (br->getWinner()->getName() == "Ghislain") { nbGhislain++; }
         if (br->getWinner()->getName() == "Dumb") { nbDumb++; }
+        if (br->getWinner()->getName() == "Megapoi2") { nbMegapoi2++; }
     }
 
     logln("");
     logln("");
-    logln("");
+    logln("Megapoi2 = " + to_string(nbMegapoi2), GREEN);
     logln("Ghislain = " + to_string(nbGhislain), GREEN);
     logln("Dumb = " + to_string(nbDumb), GREEN);
 

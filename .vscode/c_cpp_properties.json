@@ -10,7 +10,13 @@
         },
         {
             "name": "Win32",
-            "cppStandard": "c++11"
+            "cppStandard": "c++11",
+            "includePath": [
+                "${default}",
+                "${workspaceFolder}/src/battleroyale/headers",
+                "${workspaceFolder}/src/fighters/headers"
+            ],
+            "compilerPath": "C:/Program Files/CodeBlocks/MinGW/bin/g++.exe"
         }
     ],
     "version": 4
