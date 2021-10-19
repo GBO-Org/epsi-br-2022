@@ -32,7 +32,11 @@ bool ActionMove::isValid() {
 
     // Le test compliqué... Ca doit être bon, m'enfin . . . ^_^'
     return 
+<<<<<<< Updated upstream
            ((this->x == 0)
+=======
+        ((this->x == 0)
+>>>>>>> Stashed changes
         ||
         (
             (

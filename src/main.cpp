@@ -40,7 +40,7 @@ int main()
     BattleRoyale* br;
 
     for (int i = 0; i < nbTest; i++) {
-        br = new BattleRoyale(10, 100, nbTest == 1);
+        br = new BattleRoyale(25, 100, nbTest == 1);
         for (int j = 0; j < nbBot; j++) {
             // if (nbTest == 1) { br->recruit(new Humain); }
             br->recruit(new Ghislain);

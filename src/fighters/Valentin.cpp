@@ -8,13 +8,12 @@
 
 using namespace std;
 
-Valentin::Valentin() : FighterBot("Valentin", 15, 0, 15) {
+Valentin::Valentin() : FighterBot("Valentin", 5, 10, 15) {
     this->hunterId = "";
 }
 
 Fighter Valentin::selectHunter(Arena arena) {
 
-    cout << "test";
     vector<Fighter> fighters = arena.get();
     Fighter hunter = *this;
 
@@ -55,29 +54,31 @@ Fighter Valentin::selectHunter(Arena arena) {
 Action* Valentin::choose(Arena arena){
     Action* action = nullptr;
 
-    Fighter hunter = this->selectHunter(arena);
-
-    Action* possibilite1 = new ActionMove(this->getX()-hunter.getX(),this->getY()-hunter.getY());
-    possibilite1->setArena(&arena);
-    possibilite1->setFighter(this);
-    Action* possibilite2 = new ActionMove(rand() % 3 - 1,rand() % 3 - 1);
-    possibilite2->setArena(&arena);
-    possibilite2->setFighter(this);
-    Action* possibilite3 = new ActionAttack(hunter);
+    Fighter hunter = this->selectHunter(arena); 
     
-    action = possibilite1;
+    action = new ActionMove(this->getX()-hunter.getX(),this->getY()-hunter.getY());
+    action->setArena(&arena);
+    action->setFighter(this);
+    if (!action->isValid())
+    {
+        action = new ActionMove(this->getX()-hunter.getX(),this->getY());
+        action->setArena(&arena);
+        action->setFighter(this);
+        if (!action->isValid()){
+            action = new ActionMove(this->getX(),this->getY()-hunter.getY());
+            action->setArena(&arena);
+            action->setFighter(this);
+        }
+    }
     
-    if( (this->getX()-hunter.getX())==0 && (this->getY()-hunter.getY())==0){
-    action = possibilite2;
-    }
-    if(!action->isValid() && hunter.isHere(this) ){
-        action = possibilite3;   
-    }
-
-    if(action == possibilite1){
-        action = new ActionMove(this->getX()-hunter.getX(),this->getY()-hunter.getY());
-    }else if(action == possibilite2){
+    
+    while(!action->isValid()){
         action = new ActionMove(rand() % 3 - 1,rand() % 3 - 1);
+        action->setArena(&arena);
+        action->setFighter(this);
+    }
+    if(hunter.isHere(this) ){
+        action = new ActionAttack(hunter);   
     }
 
     return action;

@@ -19,6 +19,10 @@
         "chrono": "cpp",
         "memory": "cpp",
         "cstdlib": "cpp",
-        "algorithm": "cpp"
+        "algorithm": "cpp",
+        "atomic": "cpp",
+        "*.tcc": "cpp",
+        "istream": "cpp",
+        "ostream": "cpp"
     }
 }
