@@ -7,6 +7,7 @@
 #include "BattleRoyale.h"
 
 #include "Dumb.h"
+#include "MagalieContant.h"
 #include "Ghislain.h"
 #include "Humain.h"
 #include "log.h"
@@ -35,6 +36,7 @@ int main()
     int nbHumain = 0;
     int nbGhislain = 0;
     int nbDumb = 0;
+    int nbMagalie = 0;
     BattleRoyale* br;
 
     for (int i = 0; i < nbTest; i++) {
@@ -43,11 +45,14 @@ int main()
             // if (nbTest == 1) { br->recruit(new Humain); }
             br->recruit(new Ghislain);
             br->recruit(new Dumb);
+            br->recruit(new Magalie);
         }
         br->run();
 
         if (br->getWinner()->getName() == "Ghislain") { nbGhislain++; }
         if (br->getWinner()->getName() == "Dumb") { nbDumb++; }
+        if (br->getWinner()->getName() == "Magalie") { nbMagalie++; }
+
     }
 
     logln("");
@@ -55,6 +60,7 @@ int main()
     logln("");
     logln("Ghislain = " + to_string(nbGhislain), GREEN);
     logln("Dumb = " + to_string(nbDumb), GREEN);
+    logln("Magalie = " + to_string(nbMagalie), GREEN);
 
     return 0;
 }
