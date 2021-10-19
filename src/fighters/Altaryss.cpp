@@ -40,7 +40,6 @@ Fighter Altaryss::selectTarget(Arena arena) {
         this->targetId = target.getId();
         this->display(" rush " + target.getNameId());
 
-    // Sinon, on cherche notre cible dans l'arène
     } else {
         bool found = false;
         for (Fighter fighter : fighters) {
@@ -61,14 +60,11 @@ Fighter Altaryss::selectTarget(Arena arena) {
 Action* Altaryss::choose(Arena arena) {
     Action* action = nullptr;
 
-    // On retrouve notre cible
     Fighter target = this->selectTarget(arena);
 
-    // Sommes-nous sur la case de la cible ?
     if (target.isHere(this)) {
         action = new ActionAttack(target);
 
-    // Sinon, allons-y !
     } else {
         action = new ActionMove(target.getX() - this->getX(), target.getY() - this->getY());
     }

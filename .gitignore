@@ -1,2 +1,7 @@
 bin/
 .DS_Store
+.testlog
+.suo
+.sqlite
+.manifest
+.db
