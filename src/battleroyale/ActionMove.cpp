@@ -32,12 +32,37 @@ bool ActionMove::isValid() {
 
     // Le test compliqué... Ca doit être bon, m'enfin . . . ^_^'
     return 
-          (this->x == 0) ||
-        (((this->x < 0) && (fighterx > 0)) ||
-         ((this->x > 0) && (fighterx < (this->arena->getWidth()-1)))) &&
-          (this->y == 0) ||
-        (((this->y < 0) && (fightery > 0)) ||
-         ((this->y > 0) && (fightery < (this->arena->getHeight()-1))));
+           ((this->x == 0)
+        ||
+        (
+            (
+                (this->x < 0)
+                &&
+                (fighterx > 0)
+            )
+            ||
+            (
+                (this->x > 0) 
+                && 
+                (fighterx < (this->arena->getWidth()-1))
+            )
+        ) 
+        )&&(
+        (this->y == 0) 
+        ||
+        (
+            (
+                (this->y < 0) 
+                && 
+                (fightery > 0)
+            ) 
+            ||
+            (
+                (this->y > 0)
+                && 
+                (fightery < (this->arena->getHeight()-1))
+            )
+        ));
 }
 
 void ActionMove::perform() {
