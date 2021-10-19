@@ -3,15 +3,15 @@
 
 #include "ActionMove.h"
 #include "ActionAttack.h"
-#include "Eclaireur.h"
+#include "LoussouBot.h"
 
 using namespace std;
 
-Eclaireur::Eclaireur() : FighterBot("Eclaireur", 5, 12, 13) {
-        this->targetId = "EC";
+LoussouBot::LoussouBot() : FighterBot("LoussouBot", 5, 12, 13) {
+        this->targetId = "LB";
 }
 
-Fighter Eclaireur::selectTarget(Arena arena) {
+Fighter LoussouBot::selectTarget(Arena arena) {
     vector<Fighter> fighters = arena.get();
     Fighter target = *this;
     // Pas de cible retenu, on en choisit une !
@@ -22,7 +22,7 @@ Fighter Eclaireur::selectTarget(Arena arena) {
         // Parce que bon, on va d'abord viser les autres avant de se taper dessus ^_^'
         bool onlyEclaireur = true;
         for (Fighter fighter : fighters) {
-            if (fighter.getName() != "Eclaireur") {
+            if (fighter.getName() != "LoussouBot") {
                 onlyEclaireur = false;
                 break;
             }
@@ -36,7 +36,7 @@ Fighter Eclaireur::selectTarget(Arena arena) {
             }
         } else {
             // On ne choisit pas un bro'
-            while (target.isMe(this) || (target.getName() == "Eclaireur")) {
+            while (target.isMe(this) || (target.getName() == "LoussouBot")) {
                 target = fighters[rand() % fighters.size()];
             }
         }
@@ -65,13 +65,9 @@ Fighter Eclaireur::selectTarget(Arena arena) {
 
     return target;
 }
-/*
-TODO : Les faire se rassembler puis taper tous en même temps le même mec
-si plus personne, ils se tatannent entre eux
 
-*/
 
-Action* Eclaireur::choose(Arena arena) {
+Action* LoussouBot::choose(Arena arena) {
     Action* action = nullptr;
     bool hasAttacked=false;  
     vector<Fighter> fighters = arena.get();
@@ -79,14 +75,14 @@ Action* Eclaireur::choose(Arena arena) {
 
     // On retrouve notre cible
     Fighter target = this->selectTarget(arena);
-    if(target.getName()=="Eclaireur"){
+    if(target.getName()=="LoussouBot"){
         action=new ActionMove(target.getX()-this->getX(), target.getY()-this->getY());
     }
     // Sommes-nous sur la case de la cible ?
     if (target.isHere(this)&&!hasAttacked) {
         action = new ActionAttack(target);//On tape
               hasAttacked=true;
-        while (target.isMe(this) || (target.getName() == "Eclaireur")||(target.isHere(this))) {
+        while (target.isMe(this) || (target.getName() == "LoussouBot")||(target.isHere(this))) {
                 target = fighters[rand() % fighters.size()];
             }//Et on target un autre bot
 

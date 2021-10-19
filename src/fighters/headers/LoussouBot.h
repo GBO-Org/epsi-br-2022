@@ -1,5 +1,5 @@
-#ifndef FIGHTERS_ECLAIREUR_H
-#define FIGHTERS_ECLAIREUR_H
+#ifndef FIGHTERS_LOUSSOUBOT_H
+#define FIGHTERS_LOUSSOUBOT_H
 
 #include <iostream>
 
@@ -7,14 +7,14 @@
 
 using namespace std;
 
-class Eclaireur: public FighterBot {
+class LoussouBot: public FighterBot {
 private:
     string targetId;
 
     Fighter selectTarget(Arena arena);
 
 public:
-    Eclaireur();
+    LoussouBot();
 
     virtual Action* choose(Arena arena);
 };

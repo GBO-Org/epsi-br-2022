@@ -10,7 +10,7 @@
 #include "Ghislain.h"
 #include "Humain.h"
 #include "log.h"
-#include "Eclaireur.h"
+#include "LoussouBot.h"
 
 using namespace std;
 
@@ -36,7 +36,7 @@ int main()
     int nbHumain = 0;
     int nbGhislain = 0;
     int nbDumb = 0;
-    int nbEclaireur=0;
+    int nbLoussouBot=0;
     BattleRoyale* br;
 
     for (int i = 0; i < nbTest; i++) {
@@ -45,7 +45,7 @@ int main()
             // if (nbTest == 1) { br->recruit(new Humain); }
             //br->recruit(new Ghislain);
             //faut recruit un nouvel eclaireur
-            br->recruit(new Eclaireur);
+            br->recruit(new LoussouBot);
             br->recruit(new Ghislain);
             br->recruit(new Dumb);
         }
@@ -53,7 +53,7 @@ int main()
 
         if (br->getWinner()->getName() == "Ghislain") { nbGhislain++; }
         if (br->getWinner()->getName() == "Dumb") { nbDumb++; }
-        if (br->getWinner()->getName() == "Eclaireur") { nbEclaireur++; }
+        if (br->getWinner()->getName() == "LoussouBot") { nbLoussouBot++; }
     }
 
     logln("");
@@ -61,7 +61,7 @@ int main()
     logln("");
     logln("Ghislain = " + to_string(nbGhislain), GREEN);
     logln("Dumb = " + to_string(nbDumb), GREEN);
-    logln("Eclaireur = " + to_string(nbEclaireur), GREEN);
+    logln("LoussouBot = " + to_string(nbLoussouBot), GREEN);
 
     return 0;
 }
