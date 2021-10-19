@@ -3,46 +3,42 @@
 
 #include "ActionMove.h"
 #include "ActionAttack.h"
-#include "Ghislain.h"
+#include "Altaryss.h"
 
 using namespace std;
 
-Ghislain::Ghislain() : FighterBot("Ghislain", 15, 15, 0) {
+Altaryss::Altaryss() : FighterBot("Altaryss", 1, 1, 1) {
     this->targetId = "";
 }
 
-Fighter Ghislain::selectTarget(Arena arena) {
+Fighter Altaryss::selectTarget(Arena arena) {
     vector<Fighter> fighters = arena.get();
     Fighter target = *this;
 
-    // Pas de cible retenu, on en choisit une !
     if (this->targetId == "") {
-        // Reste-t-il autre chose que des Ghislain dans l'arene ?
-        // Parce que bon, on va d'abord viser les autres avant de se taper dessus ^_^'
-        bool onlyGhislain = true;
+        bool focus = false;
+        string EnnemySpotted = "";
         for (Fighter fighter : fighters) {
-            if (fighter.getName() != "Ghislain") {
-                onlyGhislain = false;
+            if (fighter.getName() == "Megapoi2") {
+                focus = true;
+                EnnemySpotted = "Megapoi2";
+                break;
+            } else if (fighter.getName() == "Val") {
+                focus = true;
+                EnnemySpotted = "Val";
                 break;
             }
         }
 
-        // Choisissons, maintenant. . . 
-        if (onlyGhislain) {
-            // On choisit n'importe qui d'autre dans l'arène
+        if (focus == true) {
+            target.getName() == EnnemySpotted;
+        } else {
             while (target.isMe(this)) {
                 target = fighters[rand() % fighters.size()];
             }
-        } else {
-            // On ne choisit pas un bro'
-            while (target.isMe(this) || (target.getName() == "Ghislain")) {
-                target = fighters[rand() % fighters.size()];
-            }
         }
-        // ...On retient son Id
         this->targetId = target.getId();
-        // ...Et on le dit :)
-        this->display(" désigne comme cible " + target.getNameId());
+        this->display(" rush " + target.getNameId());
 
     // Sinon, on cherche notre cible dans l'arène
     } else {
@@ -53,11 +49,8 @@ Fighter Ghislain::selectTarget(Arena arena) {
                 found = true;
             }
         }
-        // Si on ne l'a pas trouvé (il est sorti, visiblement)
         if (!found) {
-            // ...On l'oublie
             this->targetId = "";
-            // ...Et on en choisit un nouveau
             target = this->selectTarget(arena);
         }
     }
@@ -65,7 +58,7 @@ Fighter Ghislain::selectTarget(Arena arena) {
     return target;
 }
 
-Action* Ghislain::choose(Arena arena) {
+Action* Altaryss::choose(Arena arena) {
     Action* action = nullptr;
 
     // On retrouve notre cible

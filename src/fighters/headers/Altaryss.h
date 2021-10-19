@@ -1,5 +1,5 @@
-#ifndef FIGHTERS_GHISLAIN_H
-#define FIGHTERS_GHISLAIN_H
+#ifndef FIGHTERS_Altaryss_H
+#define FIGHTERS_Altaryss_H
 
 #include <iostream>
 
@@ -7,16 +7,16 @@
 
 using namespace std;
 
-class Ghislain: public FighterBot {
+class Altaryss: public FighterBot {
 private:
     string targetId;
 
     Fighter selectTarget(Arena arena);
 
 public:
-    Ghislain();
+    Altaryss();
 
     virtual Action* choose(Arena arena);
 };
 
-#endif //FIGHTERS_GHISLAIN_H
+#endif
