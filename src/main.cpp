@@ -8,6 +8,7 @@
 
 #include "Dumb.h"
 #include "Ghislain.h"
+#include "Thomas.h"
 #include "Humain.h"
 #include "log.h"
 
@@ -20,7 +21,7 @@ int main()
 
     cout << "Battle Royale 2022" << endl;
 
-    BattleRoyale* b;
+    BattleRoyale *b;
     int nbTest = 1;
     int nbBot = 1;
 
@@ -35,19 +36,27 @@ int main()
     int nbHumain = 0;
     int nbGhislain = 0;
     int nbDumb = 0;
-    BattleRoyale* br;
+    BattleRoyale *br;
 
-    for (int i = 0; i < nbTest; i++) {
+    for (int i = 0; i < nbTest; i++)
+    {
         br = new BattleRoyale(10, 100, nbTest == 1);
-        for (int j = 0; j < nbBot; j++) {
+        for (int j = 0; j < nbBot; j++)
+        {
             // if (nbTest == 1) { br->recruit(new Humain); }
             br->recruit(new Ghislain);
-            br->recruit(new Dumb);
+            br->recruit(new Thomas);
         }
         br->run();
 
-        if (br->getWinner()->getName() == "Ghislain") { nbGhislain++; }
-        if (br->getWinner()->getName() == "Dumb") { nbDumb++; }
+        if (br->getWinner()->getName() == "Ghislain")
+        {
+            nbGhislain++;
+        }
+        if (br->getWinner()->getName() == "Dumb")
+        {
+            nbDumb++;
+        }
     }
 
     logln("");

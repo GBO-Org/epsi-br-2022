@@ -10,7 +10,11 @@
         },
         {
             "name": "Win32",
-            "cppStandard": "c++11"
+            "cppStandard": "c++11",
+            "includePath": [
+                "${default}",
+                "${workspaceFolder}/src/battleroyale/headers"
+            ]
         }
     ],
     "version": 4

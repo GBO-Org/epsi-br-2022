@@ -9,23 +9,23 @@
 			"type": "cppdbg",
 			"request": "launch",
 			"cwd": "${workspaceFolder}",
-            "preLaunchTask": "build",
+			"preLaunchTask": "build",
 			"program": "${workspaceFolder}/bin/battleroyale",
 			"environment": [],
-            "windows": {
-                "program": "${workspaceFolder}/bin/battleroyale.exe",
-                "MIMode": "gdb",
-                "miDebuggerPath": "<Path/To/GDB>", // Path to gdb on windows
+			"windows": {
+				"program": "${workspaceFolder}/bin/battleroyale.exe",
+				"MIMode": "gdb",
+				"miDebuggerPath": "gdb.exe", // Path to gdb on windows
 				"args": []
-            },
-            "linux": {
-                "MIMode": "gdb",
+			},
+			"linux": {
+				"MIMode": "gdb",
 				"args": []
-            },
-            "osx": {
-                "MIMode": "lldb",
+			},
+			"osx": {
+				"MIMode": "lldb",
 				"args": []
-            }
-        }
+			}
+		}
 	]
 }

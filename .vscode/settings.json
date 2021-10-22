@@ -17,6 +17,11 @@
         "typeinfo": "cpp",
         "functional": "cpp",
         "chrono": "cpp",
-        "memory": "cpp"
-    }
+        "memory": "cpp",
+        "xstring": "cpp",
+        "xlocmon": "cpp",
+        "xmemory": "cpp",
+        "xutility": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
 }
