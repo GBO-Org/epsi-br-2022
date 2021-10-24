@@ -110,6 +110,10 @@ Action* Pakbo::choose(Arena arena) {
         //         break;
         //     }
         // }
+
+        // Lorsqu'il ne reste plus que des pakbos et qu'ils sont tous sur la même case,
+        // le programme reste coincé dans une boucle et il ne se passe plus rien.
+        // Je n'ai pas trouvé la solution
         if (!target.isHere(this))
         {
             action = new ActionMove(5, 5);
