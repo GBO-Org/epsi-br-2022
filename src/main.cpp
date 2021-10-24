@@ -9,6 +9,7 @@
 #include "Dumb.h"
 #include "Ghislain.h"
 #include "Humain.h"
+#include "Pakbo.h"
 #include "log.h"
 
 using namespace std;
@@ -43,6 +44,7 @@ int main()
             // if (nbTest == 1) { br->recruit(new Humain); }
             br->recruit(new Ghislain);
             br->recruit(new Dumb);
+            br->recruit(new Pakbo);
         }
         br->run();
 
