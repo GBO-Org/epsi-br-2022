@@ -9,6 +9,7 @@
 #include "Dumb.h"
 #include "Ghislain.h"
 #include "Humain.h"
+#include "Mael.h"
 #include "log.h"
 
 using namespace std;
@@ -42,7 +43,8 @@ int main()
         for (int j = 0; j < nbBot; j++) {
             // if (nbTest == 1) { br->recruit(new Humain); }
             br->recruit(new Ghislain);
-            br->recruit(new Dumb);
+            //br->recruit(new Dumb);
+            br->recruit(new Mael);
         }
         br->run();
 
