@@ -2,15 +2,89 @@
     "configurations": [
         {
             "name": "Mac",
-            "cppStandard": "c++11"
+            "cppStandard": "c++11",
+            "includePath": [
+                "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/include/*",
+                "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/atlmfc/include/*",
+                "C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/um",
+                "C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt",
+                "C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/shared",
+                "C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/winrt",
+                "C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/cppwinrt"
+            ],
+            "macFrameworkPath": [],
+            "windowsSdkVersion": "10.0.19041.0",
+            "compilerArgs": [],
+            "cStandard": "c17",
+            "intelliSenseMode": "windows-msvc-x64",
+            "compilerPath": "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\Hostx64\\x64\\cl.exe",
+            "browse": {
+                "path": [
+                    "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/include/*",
+                    "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/atlmfc/include/*",
+                    "C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/um",
+                    "C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt",
+                    "C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/shared",
+                    "C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/winrt",
+                    "C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/cppwinrt",
+                    "${workspaceFolder}"
+                ],
+                "limitSymbolsToIncludedHeaders": true
+            }
         },
         {
             "name": "Linux",
-            "cppStandard": "c++11"
+            "cppStandard": "c++11",
+            "includePath": [
+                "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/include/*",
+                "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/atlmfc/include/*",
+                "C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/um",
+                "C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt",
+                "C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/shared",
+                "C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/winrt",
+                "C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/cppwinrt"
+            ],
+            "macFrameworkPath": [],
+            "windowsSdkVersion": "10.0.19041.0",
+            "compilerArgs": [],
+            "cStandard": "c17",
+            "intelliSenseMode": "windows-msvc-x64",
+            "compilerPath": "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\Hostx64\\x64\\cl.exe",
+            "browse": {
+                "path": [
+                    "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/include/*",
+                    "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/atlmfc/include/*",
+                    "C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/um",
+                    "C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt",
+                    "C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/shared",
+                    "C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/winrt",
+                    "C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/cppwinrt",
+                    "${workspaceFolder}"
+                ],
+                "limitSymbolsToIncludedHeaders": true
+            }
         },
         {
             "name": "Win32",
-            "cppStandard": "c++11"
+            "cppStandard": "c++11",
+            "includePath": [
+                "${workspaceFolder}/src/battleroyale/headers",
+                "${workspaceFolder}/src/fighters/headers"
+            ],
+            "macFrameworkPath": [],
+            "windowsSdkVersion": "10.0.19041.0",
+            "compilerArgs": [],
+            "cStandard": "c17",
+            "intelliSenseMode": "windows-msvc-x64",
+            "compilerPath": "C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/g++.exe",
+            "browse": {
+                "path": [
+                    "${workspaceFolder}/src/battleroyale/headers",
+                    "${workspaceFolder}\\src\\figthers\\headers",
+                    "${workspaceFolder}"
+                ],
+                "limitSymbolsToIncludedHeaders": true
+            }
         }
     ],
     "version": 4

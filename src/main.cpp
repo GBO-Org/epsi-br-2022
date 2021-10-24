@@ -50,7 +50,6 @@ int main()
 
       if (br->getWinner()->getName() == "Ghislain") { nbGhislain++; }
         if (br->getWinner()->getName() == "Axel") { nbAxel++; }
-
         if (br->getWinner()->getName() == "Dumb") { nbDumb++; }
     }
 
