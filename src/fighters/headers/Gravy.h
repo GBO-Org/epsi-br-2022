@@ -7,15 +7,21 @@
 
 using namespace std;
 
+struct Position {
+    int x;
+    int y;
+    bool goodPos;
+};
+
 class Gravy: public FighterBot {
 private:
     string targetId;
 
     Fighter selectTarget(Arena arena);
-    Position selectTarget(Arena arena, int x, int y);
+    Position survive(Arena arena, int x, int y);
     Fighter randFighter(bool friendInArena, vector<Fighter> fighters, Fighter target);
-    Fighter findTarget(Fighter target, vector<Fighter> fighters, bool friendInArena);
-    Position CheckPosAvailable(vector<Position> enemyPos, Gravy myBot, vector<Fighter> fighters);
+    void findTarget(Fighter target, vector<Fighter> fighters, bool friendInArena);
+    Position CheckPosAvailable(vector<Position> enemyPos, vector<Fighter> fighters, Arena arena);
 
 public:
     Gravy();
