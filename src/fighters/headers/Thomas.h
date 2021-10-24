@@ -13,6 +13,11 @@ public:
     Thomas();
 
     virtual Action *choose(Arena arena);
+
+private:
+    string targetId;
+    Action *goForTarget(Arena arena);
+    Fighter selectTarget(Arena arena);
 };
 
 #endif //FIGHTERS_THOMAS_H
