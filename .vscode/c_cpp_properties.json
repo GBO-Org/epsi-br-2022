@@ -2,15 +2,30 @@
     "configurations": [
         {
             "name": "Mac",
-            "cppStandard": "c++11"
+            "cppStandard": "c++11",
+            "includePath": [
+                "${default}",
+                "${workspaceFolder}/src/battleroyale/headers",
+                "${workspaceFolder}/src/fighters/headers"
+            ]
         },
         {
             "name": "Linux",
-            "cppStandard": "c++11"
+            "cppStandard": "c++11",
+            "includePath": [
+                "${default}",
+                "${workspaceFolder}/src/battleroyale/headers",
+                "${workspaceFolder}/src/fighters/headers"
+            ]
         },
         {
             "name": "Win32",
-            "cppStandard": "c++11"
+            "cppStandard": "c++11",
+            "includePath": [
+                "${default}",
+                "${workspaceFolder}/src/battleroyale/headers",
+                "${workspaceFolder}/src/fighters/headers"
+            ]
         }
     ],
     "version": 4

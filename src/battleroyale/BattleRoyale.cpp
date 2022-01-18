@@ -16,7 +16,6 @@ BattleRoyale::BattleRoyale(int size, int roundLimit, bool pause) {
     this->size = size;
     this->roundLimit = roundLimit;
     this->pause = pause;
-    this->winner = nullptr;
     this->arena = new Arena(size, size);
 }
 
@@ -51,6 +50,7 @@ int BattleRoyale::nbFighterAlive() {
 }
 
 void BattleRoyale::run() {
+    this->winner = nullptr;
     int round = 1;
     // On fait autant de round qu'il est possible d'en faire (le roundLimit est notre limite)
     while (this->nbFighterAlive() > 1 && round < this->roundLimit) {
@@ -80,15 +80,19 @@ void BattleRoyale::run() {
     logln("");
     for (FighterBot* bot : this->bots) {
         if (!bot->isKO()) {
-            bot->display("", false);
-            logln(" est déclaré vainqueur en " + to_string(round-1) + " rounds !!", BLUE);
-            logln("");
-            logln("");
-            // On retient le winner
-            this->winner = bot;
-            break;
+            if (this->nbFighterAlive() == 1) {
+                bot->display("", false);
+                logln(" est déclaré vainqueur en " + to_string(round-1) + " rounds !!", BLUE);
+                this->winner = bot;
+                break;
+            } else {
+                bot->display("", false);
+                logln(" est déclaré vainqueur ex aequo", BLUE);
+            }
         }
     }
+    logln("");
+    logln("");
 }
 
 void BattleRoyale::runRound() {
@@ -97,6 +101,7 @@ void BattleRoyale::runRound() {
     sort(this->bots.begin(), this->bots.end(), Fighter::compare);
 
     for (FighterBot* bot : this->bots) {
+        logln(bot->getNameId() + " : ");
         // Ne jouent que les bots non KO
         if (!bot->isKO()) {
             this->runRoundFighter(bot);

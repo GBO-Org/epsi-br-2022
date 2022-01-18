@@ -31,7 +31,7 @@ void log(int text) { log(to_string(text), WHITE); }
 void log(string text) { log(text, WHITE); }
 void log(int text, int color) { log(to_string(text), color); }
 void log(string text, int color) {
-    setcolor(color);
+    // setcolor(color);
     cout << text;
 }
 
